@@ -1,0 +1,1493 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sapori Del Sud — Ristorante & Pizzeria Kessel-Lo Leuven</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+  :root {
+    --cream:   #faf6ee;
+    --cream2:  #fffdf8;
+    --red:     #9b1b30;
+    --red-dim: rgba(155,27,48,0.12);
+    --red-light: rgba(155,27,48,0.07);
+    --olive:   #4a7c59;
+    --gold:    #d4a017;
+    --gold-dim: rgba(212,160,23,0.25);
+    --text:    #1a1a1a;
+    --text-mid: #3a2a1a;
+    --text-muted: #7a6a5a;
+    --dark:    #1e0c06;
+    --dark-card: #2a1008;
+    --border:  rgba(212,160,23,0.3);
+    --shadow:  rgba(30,12,6,0.12);
+    --font-serif: 'Playfair Display', Georgia, serif;
+    --font-sans:  'DM Sans', system-ui, sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--cream);
+    color: var(--text);
+    font-family: var(--font-sans);
+    font-weight: 300;
+    line-height: 1.75;
+    overflow-x: hidden;
+  }
+
+  /* ── UTILITIES ───────────────────────────────── */
+  .section-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 14px;
+  }
+  .section-tag::before, .section-tag::after {
+    content: '';
+    width: 28px;
+    height: 1px;
+    background: var(--red);
+    opacity: 0.5;
+  }
+  .section-tag.gold { color: var(--gold); }
+  .section-tag.gold::before, .section-tag.gold::after { background: var(--gold); }
+  .section-tag.olive { color: #9dc9a8; }
+  .section-tag.olive::before, .section-tag.olive::after { background: #9dc9a8; }
+
+  .section-heading {
+    font-family: var(--font-serif);
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    margin-bottom: 16px;
+  }
+  .section-heading em { font-style: italic; }
+
+  .divider {
+    width: 44px;
+    height: 1.5px;
+    background: var(--gold);
+    margin: 20px 0;
+    opacity: 0.65;
+  }
+  .divider.center { margin: 20px auto; }
+
+  .fade-up {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+  .fade-up.d1 { transition-delay: 0.1s; }
+  .fade-up.d2 { transition-delay: 0.2s; }
+  .fade-up.d3 { transition-delay: 0.3s; }
+  .fade-up.d4 { transition-delay: 0.42s; }
+
+  /* ── NAV ────────────────────────────────────── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    background: rgba(250,246,238,0.94);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    padding: 0 5vw;
+    height: 68px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+  nav.scrolled {
+    border-bottom-color: var(--gold-dim);
+    box-shadow: 0 2px 20px var(--shadow);
+  }
+
+  .nav-logo {
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+    gap: 3px;
+  }
+  .nav-logo-name {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1;
+  }
+  .nav-logo-name .sapori { color: var(--red); }
+  .nav-logo-name .delsud { color: var(--olive); }
+  .nav-logo-sub {
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    font-weight: 400;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--text-mid);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--red); }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .btn-red {
+    display: inline-block;
+    padding: 9px 22px;
+    background: var(--red);
+    color: #fff;
+    font-family: var(--font-sans);
+    font-size: 11.5px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background 0.25s, transform 0.2s;
+  }
+  .btn-red:hover { background: #7d1525; transform: translateY(-1px); }
+
+  /* Lang toggle */
+  .lang-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    border: 1.5px solid var(--red);
+    border-radius: 5px;
+    overflow: hidden;
+  }
+  .lang-btn {
+    background: transparent;
+    border: none;
+    padding: 5px 10px;
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+    letter-spacing: 0.08em;
+    color: var(--red);
+    transition: background 0.2s, color 0.2s;
+    font-family: var(--font-sans);
+  }
+  .lang-btn.active { background: var(--red); color: #fff; }
+  .lang-btn:hover:not(.active) { background: var(--red-dim); }
+
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 4px;
+    background: none;
+    border: none;
+  }
+  .hamburger span {
+    display: block;
+    width: 22px;
+    height: 1.5px;
+    background: var(--text);
+    transition: transform 0.3s, opacity 0.3s;
+  }
+  .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+    background: rgba(250,246,238,0.98);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 36px;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 32px;
+    color: var(--text);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .mobile-menu a:hover { color: var(--red); }
+  .mobile-menu .btn-red { font-style: normal; font-family: var(--font-sans); font-size: 14px; padding: 13px 36px; border-radius: 6px; }
+
+  /* ── HERO ─────────────────────────────────── */
+  #hero {
+    position: relative;
+    height: 100vh;
+    min-height: 620px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background-image: url('images/pizza.png');
+    background-size: cover;
+    background-position: center;
+    transform: scale(1.04);
+    transition: transform 8s ease;
+  }
+  #hero.loaded .hero-bg { transform: scale(1); }
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(30,10,5,0.60);
+  }
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 0 40px;
+    max-width: 860px;
+  }
+  .hero-label {
+    font-size: 11px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: rgba(212,160,23,0.9);
+    margin-bottom: 22px;
+    font-weight: 400;
+  }
+  .hero-h1 {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: clamp(50px, 10vw, 110px);
+    font-weight: 400;
+    line-height: 1.0;
+    color: #fdf5e4;
+    letter-spacing: -0.01em;
+    margin-bottom: 20px;
+  }
+  .hero-sub {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: clamp(14px, 2vw, 19px);
+    color: var(--gold);
+    margin-bottom: 14px;
+    font-weight: 400;
+  }
+  .hero-quote {
+    font-size: 13px;
+    color: rgba(253,245,228,0.55);
+    font-style: italic;
+    margin-bottom: 28px;
+    font-family: var(--font-serif);
+  }
+  .hero-icons {
+    display: flex;
+    justify-content: center;
+    gap: 28px;
+    margin-bottom: 36px;
+    flex-wrap: wrap;
+  }
+  .hero-icon-item {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 12.5px;
+    color: rgba(253,245,228,0.65);
+    letter-spacing: 0.05em;
+  }
+  .hero-icon-item span:first-child { font-size: 18px; }
+  .hero-btns {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 36px;
+  }
+  .btn-hero-filled {
+    display: inline-block;
+    padding: 13px 32px;
+    background: var(--red);
+    color: #fff;
+    font-family: var(--font-sans);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 5px;
+    border: 1.5px solid var(--red);
+    transition: background 0.25s;
+  }
+  .btn-hero-filled:hover { background: #7d1525; border-color: #7d1525; }
+  .btn-hero-outline {
+    display: inline-block;
+    padding: 13px 32px;
+    background: transparent;
+    color: #fdf5e4;
+    font-family: var(--font-sans);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 5px;
+    border: 1.5px solid rgba(253,245,228,0.5);
+    transition: background 0.25s, border-color 0.25s;
+  }
+  .btn-hero-outline:hover { background: rgba(253,245,228,0.1); border-color: rgba(253,245,228,0.8); }
+  .hero-open {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    font-size: 12px;
+    color: rgba(253,245,228,0.5);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .pulse-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: #4caf75;
+    flex-shrink: 0;
+    animation: pulse 2.2s ease infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(76,175,117,0.5); }
+    50%       { box-shadow: 0 0 0 6px rgba(76,175,117,0); }
+  }
+  .hero-scroll {
+    position: absolute;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    opacity: 0.38;
+    animation: bounce 2s ease infinite;
+  }
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50%       { transform: translateX(-50%) translateY(7px); }
+  }
+
+  /* ── PILLARS STRIP ───────────────────────── */
+  #pillars {
+    background: #fff;
+    padding: 60px 5vw;
+    border-top: 3px solid var(--red);
+    border-bottom: 1px solid rgba(212,160,23,0.15);
+  }
+  .pillars-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    max-width: 1080px;
+    margin: 0 auto;
+    border: 1px solid rgba(212,160,23,0.18);
+  }
+  .pillar-card {
+    padding: 36px 28px;
+    text-align: center;
+    border-right: 1px solid rgba(212,160,23,0.18);
+    transition: background 0.3s;
+  }
+  .pillar-card:last-child { border-right: none; }
+  .pillar-card:hover { background: var(--cream); }
+  .pillar-icon { font-size: 32px; margin-bottom: 14px; display: block; }
+  .pillar-title {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 17px;
+    color: var(--text);
+    margin-bottom: 8px;
+    font-weight: 400;
+  }
+  .pillar-desc {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  /* ── MENU HIGHLIGHTS ─────────────────────── */
+  #menu {
+    background: var(--cream);
+    padding: 100px 5vw;
+  }
+  .menu-header {
+    text-align: center;
+    max-width: 560px;
+    margin: 0 auto 60px;
+  }
+  .menu-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    max-width: 1080px;
+    margin: 0 auto 44px;
+  }
+  .menu-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 36px 30px;
+    border: 1.5px solid var(--red-dim);
+    box-shadow: 0 4px 24px var(--shadow);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .menu-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--red);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.35s;
+  }
+  .menu-card:hover { transform: translateY(-4px); box-shadow: 0 8px 36px rgba(30,12,6,0.16); }
+  .menu-card:hover::before { transform: scaleX(1); }
+  .menu-card-icon { font-size: 36px; margin-bottom: 16px; display: block; }
+  .menu-card-name {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--text);
+    margin-bottom: 12px;
+  }
+  .menu-card-desc {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+  .menu-card-price {
+    display: inline-block;
+    margin-top: 14px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--red);
+    letter-spacing: 0.04em;
+  }
+
+  .menu-mini-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    max-width: 1080px;
+    margin: 0 auto 40px;
+  }
+  .menu-mini-item {
+    background: #fff;
+    border-radius: 8px;
+    padding: 18px 20px;
+    border: 1px solid rgba(212,160,23,0.2);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    color: var(--text-mid);
+  }
+  .menu-mini-item span:first-child { font-size: 22px; flex-shrink: 0; }
+
+  .menu-footer {
+    text-align: center;
+  }
+  .btn-order {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 13px 32px;
+    background: var(--red);
+    color: #fff;
+    font-family: var(--font-sans);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: background 0.25s;
+  }
+  .btn-order:hover { background: #7d1525; }
+
+  /* ── ABOUT ────────────────────────────────── */
+  #over-ons {
+    background: var(--dark);
+    padding: 100px 5vw;
+  }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 72px;
+    align-items: center;
+    max-width: 1080px;
+    margin: 0 auto;
+  }
+  .about-img {
+    width: 100%;
+    border-radius: 12px;
+    border: 3px solid var(--gold);
+    display: block;
+    object-fit: cover;
+    aspect-ratio: 4/3;
+  }
+  .about-body h2 {
+    font-family: var(--font-serif);
+    font-size: clamp(24px, 3.5vw, 40px);
+    font-weight: 400;
+    color: #fdf5e4;
+    margin-bottom: 8px;
+    line-height: 1.2;
+  }
+  .about-body .about-italic {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 16px;
+    color: var(--gold);
+    margin-bottom: 20px;
+  }
+  .about-body p {
+    font-size: 15px;
+    color: rgba(253,245,228,0.65);
+    line-height: 1.85;
+    margin-bottom: 12px;
+  }
+  .about-stats {
+    display: flex;
+    gap: 28px;
+    margin-top: 28px;
+    flex-wrap: wrap;
+  }
+  .about-stat {
+    text-align: center;
+  }
+  .about-stat-num {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 24px;
+    color: var(--gold);
+    line-height: 1;
+    font-weight: 400;
+  }
+  .about-stat-lbl {
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(253,245,228,0.4);
+    margin-top: 4px;
+  }
+
+  /* ── TERRACE ──────────────────────────────── */
+  #terras {
+    background: var(--olive);
+    padding: 100px 5vw;
+  }
+  .terras-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 72px;
+    align-items: center;
+    max-width: 1080px;
+    margin: 0 auto;
+  }
+  .terras-text h2 {
+    font-family: var(--font-serif);
+    font-size: clamp(26px, 3.5vw, 44px);
+    font-weight: 400;
+    color: #fff;
+    margin-bottom: 20px;
+    line-height: 1.2;
+  }
+  .terras-text p {
+    font-size: 15.5px;
+    color: rgba(255,255,255,0.78);
+    line-height: 1.8;
+    margin-bottom: 12px;
+  }
+  .terras-img {
+    width: 100%;
+    border-radius: 12px;
+    display: block;
+    object-fit: cover;
+    aspect-ratio: 4/3;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.25);
+  }
+
+  /* ── REVIEWS ──────────────────────────────── */
+  #reviews {
+    background: var(--cream2);
+    padding: 100px 5vw;
+  }
+  .reviews-header {
+    text-align: center;
+    max-width: 520px;
+    margin: 0 auto 56px;
+  }
+  .reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    max-width: 1080px;
+    margin: 0 auto 44px;
+  }
+  .review-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 32px 28px;
+    box-shadow: 0 2px 20px var(--shadow);
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(212,160,23,0.15);
+    transition: transform 0.3s;
+  }
+  .review-card:hover { transform: translateY(-3px); }
+  .review-stars { display: flex; gap: 3px; margin-bottom: 16px; }
+  .review-stars i { color: var(--gold); font-size: 13px; }
+  .review-text {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 15.5px;
+    color: var(--text);
+    line-height: 1.65;
+    flex: 1;
+    margin-bottom: 20px;
+  }
+  .review-text::before { content: '\201C'; }
+  .review-text::after  { content: '\201D'; }
+  .review-source {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(212,160,23,0.18);
+  }
+  .review-dot {
+    width: 28px; height: 28px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 700; color: #fff;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .dot-tb  { background: var(--red); }
+  .dot-ta  { background: #00af87; }
+  .review-meta { font-size: 12px; color: var(--text-muted); line-height: 1.35; }
+  .review-meta strong { display: block; color: var(--text-mid); font-size: 12.5px; font-weight: 500; }
+
+  .reviews-footer {
+    text-align: center;
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .link-red {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--red);
+    text-decoration: none;
+    font-weight: 500;
+    border-bottom: 1px solid transparent;
+    padding-bottom: 2px;
+    transition: border-color 0.2s;
+  }
+  .link-red:hover { border-bottom-color: var(--red); }
+
+  /* ── RESERVATION & CONTACT ────────────────── */
+  #reservatie {
+    background: var(--dark);
+    padding: 100px 5vw;
+  }
+  .res-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 72px;
+    max-width: 1080px;
+    margin: 0 auto;
+    align-items: start;
+  }
+  .contact-block h3 {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 28px;
+    font-weight: 400;
+    color: #fdf5e4;
+    margin-bottom: 28px;
+  }
+  .contact-list { list-style: none; margin-bottom: 28px; }
+  .contact-list li {
+    display: flex;
+    gap: 14px;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(212,160,23,0.1);
+    font-size: 14px;
+    align-items: flex-start;
+  }
+  .contact-list li:first-child { border-top: 1px solid rgba(212,160,23,0.1); }
+  .contact-icon { color: var(--gold); width: 18px; flex-shrink: 0; margin-top: 2px; font-size: 14px; }
+  .contact-text { color: rgba(253,245,228,0.65); line-height: 1.55; }
+  .contact-text a { color: rgba(253,245,228,0.65); text-decoration: none; transition: color 0.2s; }
+  .contact-text a:hover { color: var(--gold); }
+  .contact-hours-row {
+    display: flex;
+    gap: 12px;
+    font-size: 14px;
+    color: rgba(253,245,228,0.65);
+  }
+  .contact-day { width: 44px; flex-shrink: 0; font-weight: 500; }
+  .contact-closed { color: rgba(253,245,228,0.3); }
+  .map-wrap {
+    margin-top: 20px;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid rgba(212,160,23,0.2);
+  }
+  .map-wrap iframe {
+    width: 100%;
+    height: 220px;
+    border: none;
+    display: block;
+    filter: invert(0.88) hue-rotate(180deg) saturate(0.3) brightness(0.6);
+  }
+
+  /* Form */
+  .form-block h3 {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 28px;
+    font-weight: 400;
+    color: #fdf5e4;
+    margin-bottom: 28px;
+  }
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+  .form-group { margin-bottom: 0; }
+  .form-group label {
+    display: block;
+    font-size: 9.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 500;
+    margin-bottom: 6px;
+  }
+  .f-input, .f-select {
+    width: 100%;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(212,160,23,0.22);
+    color: rgba(253,245,228,0.85);
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: 300;
+    padding: 12px 14px;
+    outline: none;
+    border-radius: 5px;
+    transition: border-color 0.3s, background 0.3s;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+  .f-input::placeholder { color: rgba(253,245,228,0.22); }
+  .f-input:focus, .f-select:focus {
+    border-color: rgba(212,160,23,0.5);
+    background: rgba(212,160,23,0.05);
+  }
+  .f-select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23d4a017' stroke-width='1.2' fill='none'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 36px;
+    cursor: pointer;
+  }
+  .f-select option { background: #1e0c06; color: #fdf5e4; }
+  .form-full { margin-bottom: 14px; }
+  .btn-submit {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+    padding: 13px 34px;
+    background: var(--red);
+    color: #fff;
+    font-family: var(--font-sans);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: background 0.25s;
+  }
+  .btn-submit:hover { background: #7d1525; }
+  .form-success {
+    display: none;
+    padding: 26px;
+    border-radius: 8px;
+    border: 1px solid rgba(76,175,117,0.3);
+    background: rgba(76,175,117,0.07);
+    text-align: center;
+    margin-top: 20px;
+  }
+  .form-success-title {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 26px;
+    color: #4caf75;
+    margin-bottom: 8px;
+  }
+  .form-success-sub { font-size: 13px; color: rgba(253,245,228,0.5); }
+
+  /* ── FOOTER ───────────────────────────────── */
+  footer {
+    background: var(--dark);
+    padding: 40px 5vw;
+    border-top: 1px solid rgba(212,160,23,0.12);
+  }
+  .footer-inner {
+    max-width: 1080px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .footer-brand { text-decoration: none; }
+  .footer-name {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1;
+  }
+  .footer-name .fs { color: var(--red); }
+  .footer-name .fd { color: var(--gold); }
+  .footer-sub {
+    font-size: 9.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(212,160,23,0.45);
+    margin-top: 4px;
+  }
+  .footer-copy {
+    font-size: 11.5px;
+    color: rgba(253,245,228,0.28);
+    text-align: center;
+  }
+  .footer-links { display: flex; gap: 20px; flex-wrap: wrap; }
+  .footer-links a {
+    font-size: 11.5px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(212,160,23,0.5);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--gold); }
+
+  /* ── RESPONSIVE ───────────────────────────── */
+  @media (max-width: 768px) {
+    .nav-links, .nav-right .btn-red { display: none; }
+    .hamburger { display: flex; }
+
+    .pillars-grid { grid-template-columns: 1fr 1fr; }
+    .pillar-card { border-bottom: 1px solid rgba(212,160,23,0.18); }
+    .pillar-card:nth-child(2) { border-right: none; }
+    .pillar-card:nth-child(4) { border-right: none; }
+
+    .menu-cards { grid-template-columns: 1fr; gap: 16px; }
+    .menu-mini-grid { grid-template-columns: 1fr 1fr; }
+
+    .about-grid, .terras-grid, .res-grid { grid-template-columns: 1fr; gap: 48px; }
+    .about-img-wrap { order: -1; }
+
+    .reviews-grid { grid-template-columns: 1fr; gap: 16px; }
+
+    .form-row { grid-template-columns: 1fr; }
+
+    #menu, #over-ons, #terras, #reviews, #reservatie { padding: 70px 5vw; }
+
+    .footer-inner { flex-direction: column; text-align: center; }
+    .footer-links { justify-content: center; }
+  }
+
+  @media (max-width: 480px) {
+    .hero-btns { flex-direction: column; align-items: center; }
+    .hero-icons { gap: 16px; }
+    .pillars-grid { grid-template-columns: 1fr; }
+    .pillar-card { border-right: none; }
+    .menu-mini-grid { grid-template-columns: 1fr; }
+    .about-stats { gap: 18px; }
+    .reviews-footer { flex-direction: column; align-items: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#hero" class="nav-logo">
+    <div class="nav-logo-name"><span class="sapori">Sapori</span> <span class="delsud">del Sud</span></div>
+    <div class="nav-logo-sub">🇮🇹 Ristorante · Pizzeria · Kessel-Lo</div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#menu" data-lang="nav_menu">Menu</a></li>
+    <li><a href="#over-ons" data-lang="nav_about">Over ons</a></li>
+    <li><a href="#terras" data-lang="nav_terras">Terras</a></li>
+    <li><a href="#reservatie" data-lang="nav_res">Reservatie</a></li>
+    <li><a href="#reservatie" data-lang="nav_contact">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="lang-toggle" id="langToggle">
+      <button class="lang-btn active" data-lang="nl">NL</button>
+      <button class="lang-btn" data-lang="en">EN</button>
+    </div>
+    <a href="#reservatie" class="btn-red" data-lang="nav_cta">Reserveer</a>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#menu"       class="mob-link" data-lang="nav_menu">Menu</a>
+  <a href="#over-ons"   class="mob-link" data-lang="nav_about">Over ons</a>
+  <a href="#terras"     class="mob-link" data-lang="nav_terras">Terras</a>
+  <a href="#reservatie" class="mob-link" data-lang="nav_res">Reservatie</a>
+  <a href="#reservatie" class="mob-link btn-red" data-lang="nav_cta">Reserveer</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-label">— Ristorante 100% Italiano —</div>
+    <h1 class="hero-h1">Sapori del Sud</h1>
+    <p class="hero-sub" data-lang="hero_sub">Authentieke Italiaanse keuken in het hart van Kessel-Lo</p>
+    <p class="hero-quote">"Je voelt je precies in Italië"</p>
+    <div class="hero-icons">
+      <div class="hero-icon-item"><span>🍕</span><span>Pizza</span></div>
+      <div class="hero-icon-item"><span>🍝</span><span>Pasta</span></div>
+      <div class="hero-icon-item"><span>🌿</span><span data-lang="hero_icon3">100% Italiaans</span></div>
+      <div class="hero-icon-item"><span>🌞</span><span data-lang="hero_icon4">Terras</span></div>
+    </div>
+    <div class="hero-btns">
+      <a href="#menu"       class="btn-hero-filled" data-lang="hero_btn1">Bekijk ons menu</a>
+      <a href="#reservatie" class="btn-hero-outline" data-lang="hero_btn2">Reserveer een tafel</a>
+    </div>
+    <div class="hero-open">
+      <span class="pulse-dot"></span>
+      <span data-lang="hero_hours">Di–Zo: 12:00–14:30 &amp; 18:00–21:30</span>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <svg width="20" height="34" viewBox="0 0 20 34" fill="none">
+      <rect x="1" y="1" width="18" height="32" rx="9" stroke="#fdf5e4" stroke-width="1" opacity="0.35"/>
+      <circle cx="10" cy="8.5" r="2.2" fill="#fdf5e4" opacity="0.45">
+        <animate attributeName="cy" values="8.5;20;8.5" dur="2.2s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0.45;0.1;0.45" dur="2.2s" repeatCount="indefinite"/>
+      </circle>
+    </svg>
+  </div>
+</section>
+
+<!-- PILLARS STRIP -->
+<section id="pillars">
+  <div class="pillars-grid">
+    <div class="pillar-card fade-up">
+      <span class="pillar-icon">🇮🇹</span>
+      <div class="pillar-title" data-lang="pillar1_title">100% Italiaans</div>
+      <div class="pillar-desc" data-lang="pillar1_desc">Authentieke zuiderse Italiaanse keuken</div>
+    </div>
+    <div class="pillar-card fade-up d1">
+      <span class="pillar-icon">🍕</span>
+      <div class="pillar-title" data-lang="pillar2_title">Verse pizza &amp; Pinsa</div>
+      <div class="pillar-desc" data-lang="pillar2_desc">Inclusief lichte Pinsa Romana</div>
+    </div>
+    <div class="pillar-card fade-up d2">
+      <span class="pillar-icon">🌞</span>
+      <div class="pillar-title" data-lang="pillar3_title">Gezellig terras</div>
+      <div class="pillar-desc" data-lang="pillar3_desc">Buiten genieten in alle seizoenen</div>
+    </div>
+    <div class="pillar-card fade-up d3">
+      <span class="pillar-icon">🚗</span>
+      <div class="pillar-title" data-lang="pillar4_title">Takeaway &amp; bezorging</div>
+      <div class="pillar-desc" data-lang="pillar4_desc">Ook afhalen of thuis laten bezorgen</div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU HIGHLIGHTS -->
+<section id="menu">
+  <div class="menu-header fade-up">
+    <div class="section-tag" data-lang="menu_tag">Onze specialiteiten</div>
+    <h2 class="section-heading"><em data-lang="menu_heading">Smaken van het Zuiden</em></h2>
+    <div class="divider center"></div>
+    <p style="font-size:14.5px;color:var(--text-muted)" data-lang="menu_sub">Alles vers bereid, met liefde en aandacht voor de Italiaanse traditie</p>
+  </div>
+  <div class="menu-cards">
+    <div class="menu-card fade-up d1">
+      <span class="menu-card-icon">🍕</span>
+      <div class="menu-card-name">Pizza &amp; Pinsa</div>
+      <div class="menu-card-desc" data-lang="card1_desc">Verse pizza's met premium ingrediënten. Ook onze lichte Pinsa Romana — minder zout, minder calorieën, lang gerijsd deeg.</div>
+    </div>
+    <div class="menu-card fade-up d2">
+      <span class="menu-card-icon">🍝</span>
+      <div class="menu-card-name">Pasta della Casa</div>
+      <div class="menu-card-desc" data-lang="card2_desc">Linguine alle vongole, ravioli al tartufo, lasagna tradizionale — allemaal vers bereid.</div>
+    </div>
+    <div class="menu-card fade-up d3">
+      <span class="menu-card-icon">🥩</span>
+      <div class="menu-card-name">Scaloppina</div>
+      <div class="menu-card-desc" data-lang="card3_desc">Kalfsescalop in gorgonzolasaus of Napolitana — het absolute hoogtepunt van onze kaart.</div>
+      <span class="menu-card-price">€24</span>
+    </div>
+  </div>
+  <div class="menu-mini-grid fade-up">
+    <div class="menu-mini-item"><span>🦪</span><span>Linguine alle vongole — €22</span></div>
+    <div class="menu-mini-item"><span>🧀</span><span data-lang="mini2">Antipasti schotel</span></div>
+    <div class="menu-mini-item"><span>🍮</span><span>Tiramisù</span></div>
+    <div class="menu-mini-item"><span>🍋</span><span>Torta al limoncello</span></div>
+  </div>
+  <div class="menu-footer fade-up">
+    <a href="https://sapori-del-sud-leuven.be" target="_blank" rel="noopener" class="btn-order">
+      <span data-lang="order_cta">Bestel online</span> <i class="fa-solid fa-arrow-right" style="font-size:10px"></i>
+    </a>
+  </div>
+</section>
+
+<!-- ABOUT / DA ROCCO STORY -->
+<section id="over-ons">
+  <div class="about-grid">
+    <div class="fade-up">
+      <img class="about-img" src="images/interior.png" alt="Sapori Del Sud interieur" loading="lazy">
+    </div>
+    <div class="fade-up d2">
+      <div class="section-tag gold" data-lang="about_tag">Ons verhaal</div>
+      <h2 style="font-family:var(--font-serif);font-size:clamp(22px,3.2vw,38px);font-weight:400;color:#fdf5e4;margin-bottom:10px;line-height:1.2" data-lang="about_heading">La famiglia Da Rocco verwelkomt u.</h2>
+      <p class="about-italic" data-lang="about_italic">Ristorante 100% italiano — van hart tot bord.</p>
+      <p style="font-size:15px;color:rgba(253,245,228,0.65);line-height:1.85;margin-bottom:12px" data-lang="about_body">Sapori Del Sud is meer dan een restaurant — het is een stukje Italië in Kessel-Lo. Familie Da Rocco brengt de authentieke smaken van het Italiaanse zuiden naar jouw bord. Alles vers bereid, met liefde en aandacht. Hier voel je je precies in Italië.</p>
+      <div class="about-stats">
+        <div class="about-stat">
+          <div class="about-stat-num">96%</div>
+          <div class="about-stat-lbl">Facebook</div>
+        </div>
+        <div class="about-stat">
+          <div class="about-stat-num">8.5/10</div>
+          <div class="about-stat-lbl">Tablebooker</div>
+        </div>
+        <div class="about-stat">
+          <div class="about-stat-num">100%</div>
+          <div class="about-stat-lbl" data-lang="about_stat3">Italiaans</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TERRACE -->
+<section id="terras">
+  <div class="terras-grid">
+    <div class="terras-text fade-up">
+      <div class="section-tag olive" data-lang="terras_tag">Ons Terras</div>
+      <h2 data-lang="terras_heading">Buiten genieten in de open lucht</h2>
+      <p data-lang="terras_body">Geniet van authentieke Italiaanse gerechten op ons gezellige buitenterras. Perfect voor een zomerse lunch of avondmaaltijd in de buitenlucht.</p>
+    </div>
+    <div class="fade-up d2">
+      <img class="terras-img" src="images/terrace.png" alt="Sapori Del Sud terras" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews">
+  <div class="reviews-header fade-up">
+    <div class="section-tag" data-lang="reviews_tag">Ervaringen</div>
+    <h2 class="section-heading"><em data-lang="reviews_heading">Wat onze gasten zeggen</em></h2>
+    <div class="divider center"></div>
+  </div>
+  <div class="reviews-grid">
+    <div class="review-card fade-up d1">
+      <div class="review-stars">
+        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+      </div>
+      <p class="review-text">Mamma mia, wat een escalope! Perfect mals, met die tomatensaus zoals in bella Italia. Heerlijk gegeten in een warme, echte Italiaanse sfeer. Grazie mille — wij komen zeker terug!</p>
+      <div class="review-source">
+        <div class="review-dot dot-tb">T</div>
+        <div class="review-meta"><strong>Tablebooker</strong>Sapori Del Sud</div>
+      </div>
+    </div>
+    <div class="review-card fade-up d2">
+      <div class="review-stars">
+        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+      </div>
+      <p class="review-text">Best pizza in Leuven. Nice Italian service and cozy all natural place. Tasty, original taste.</p>
+      <div class="review-source">
+        <div class="review-dot dot-ta">T</div>
+        <div class="review-meta"><strong>TripAdvisor</strong>Sapori Del Sud</div>
+      </div>
+    </div>
+    <div class="review-card fade-up d3">
+      <div class="review-stars">
+        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+      </div>
+      <p class="review-text">Vriendelijke bediening, gemoedelijk, super lekker Italiaans gerecht!</p>
+      <div class="review-source">
+        <div class="review-dot dot-tb">T</div>
+        <div class="review-meta"><strong>Tablebooker</strong>Sapori Del Sud</div>
+      </div>
+    </div>
+  </div>
+  <div class="reviews-footer fade-up">
+    <a href="https://www.tripadvisor.com" target="_blank" rel="noopener" class="link-red">
+      <span style="color:#00af87;font-weight:700;font-size:13px">T</span>
+      <span data-lang="ta_link">TripAdvisor · #4 in Kessel-Lo</span>
+      <i class="fa-solid fa-arrow-right" style="font-size:10px"></i>
+    </a>
+    <a href="https://facebook.com/Saporidelsud2016" target="_blank" rel="noopener" class="link-red">
+      <i class="fa-brands fa-facebook-f" style="color:#4285f4;font-size:13px"></i>
+      <span data-lang="fb_link">Facebook · 96% aanraders</span>
+      <i class="fa-solid fa-arrow-right" style="font-size:10px"></i>
+    </a>
+  </div>
+</section>
+
+<!-- RESERVATION & CONTACT -->
+<section id="reservatie">
+  <div class="res-grid">
+    <!-- Left: contact + map -->
+    <div class="contact-block fade-up">
+      <div class="section-tag gold" style="margin-bottom:20px" data-lang="contact_tag">Contact &amp; Locatie</div>
+      <ul class="contact-list">
+        <li>
+          <i class="fa-solid fa-location-dot contact-icon"></i>
+          <span class="contact-text">Diestsesteenweg 182<br>3010 Kessel-Lo, Leuven</span>
+        </li>
+        <li>
+          <i class="fa-solid fa-phone contact-icon"></i>
+          <span class="contact-text">
+            <a href="tel:+3216196370">+32 16 19 63 70</a><br>
+            <a href="tel:+32494821150">+32 494 82 11 50</a>
+          </span>
+        </li>
+        <li>
+          <i class="fa-solid fa-envelope contact-icon"></i>
+          <span class="contact-text"><a href="mailto:Darocco2003@gmail.com">Darocco2003@gmail.com</a></span>
+        </li>
+        <li>
+          <i class="fa-solid fa-clock contact-icon"></i>
+          <span class="contact-text">
+            <div class="contact-hours-row"><span class="contact-day" data-lang="day_mon">Ma</span><span class="contact-closed" data-lang="closed">Gesloten</span></div>
+            <div class="contact-hours-row"><span class="contact-day" data-lang="day_tues">Di–Zo</span><span>12:00–14:30 &amp; 18:00–21:30</span></div>
+          </span>
+        </li>
+        <li>
+          <i class="fa-solid fa-circle-info contact-icon"></i>
+          <span class="contact-text" data-lang="contact_note">Reservatie aanbevolen · Terras beschikbaar</span>
+        </li>
+      </ul>
+      <div class="map-wrap">
+        <iframe
+          src="https://www.google.com/maps?q=Diestsesteenweg+182,+3010+Kessel-Lo&output=embed"
+          width="100%" height="220"
+          style="border:0;" allowfullscreen loading="lazy"
+          title="Sapori Del Sud — Diestsesteenweg 182, Kessel-Lo">
+        </iframe>
+      </div>
+    </div>
+
+    <!-- Right: form -->
+    <div class="form-block fade-up d2">
+      <div class="section-tag gold" style="margin-bottom:20px" data-lang="form_tag">Reserveer een tafel</div>
+      <form id="res-form" novalidate>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="r-naam" data-lang="lbl_naam">Naam</label>
+            <input class="f-input" type="text" id="r-naam" data-ph="ph_naam" placeholder="Uw naam" required>
+          </div>
+          <div class="form-group">
+            <label for="r-email">Email</label>
+            <input class="f-input" type="email" id="r-email" placeholder="uw@email.be" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="r-datum" data-lang="lbl_datum">Datum</label>
+            <input class="f-input" type="date" id="r-datum" required>
+          </div>
+          <div class="form-group">
+            <label for="r-tijd" data-lang="lbl_tijd">Tijd</label>
+            <select class="f-select" id="r-tijd" required>
+              <option value="" data-lang="opt_tijd">Kies tijdstip</option>
+              <option>12:00</option><option>12:30</option>
+              <option>13:00</option><option>13:30</option>
+              <option>14:00</option><option>14:30</option>
+              <option>18:00</option><option>18:30</option>
+              <option>19:00</option><option>19:30</option>
+              <option>20:00</option><option>20:30</option>
+              <option>21:00</option><option>21:30</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-full">
+          <label for="r-personen" data-lang="lbl_pers">Aantal personen</label>
+          <select class="f-select" id="r-personen" required>
+            <option value="" data-lang="opt_pers">Kies aantal</option>
+            <option data-lang="opt_12">1–2 personen</option>
+            <option data-lang="opt_35">3–5 personen</option>
+            <option data-lang="opt_610">6–10 personen</option>
+            <option data-lang="opt_10p">10+ personen</option>
+          </select>
+        </div>
+        <div class="form-full">
+          <label for="r-opmerking" data-lang="lbl_note">Opmerking (optioneel)</label>
+          <textarea class="f-input" id="r-opmerking" data-ph="ph_note" placeholder="Allergiëen, speciale wensen..." style="resize:vertical;min-height:88px"></textarea>
+        </div>
+        <button type="submit" class="btn-submit">
+          <span data-lang="btn_submit">Reserveer</span>
+          <i class="fa-solid fa-arrow-right" style="font-size:10px"></i>
+        </button>
+      </form>
+      <div class="form-success" id="form-success">
+        <div class="form-success-title">Grazie! 🇮🇹</div>
+        <div class="form-success-sub" data-lang="success_sub">We bevestigen uw reservatie zo snel mogelijk.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <a href="#hero" class="footer-brand">
+      <div class="footer-name"><span class="fs">Sapori</span> <span class="fd">del Sud</span> 🇮🇹</div>
+      <div class="footer-sub">Ristorante 100% Italiano · Kessel-Lo</div>
+    </a>
+    <p class="footer-copy">© 2026 &nbsp;·&nbsp; Diestsesteenweg 182 &nbsp;·&nbsp; 3010 Kessel-Lo</p>
+    <div class="footer-links">
+      <a href="https://facebook.com/Saporidelsud2016" target="_blank" rel="noopener">
+        <i class="fa-brands fa-facebook-f"></i> Facebook
+      </a>
+      <a href="https://sapori-del-sud-leuven.be" target="_blank" rel="noopener">
+        <i class="fa-solid fa-utensils"></i> Takeaway
+      </a>
+      <a href="https://www.tripadvisor.com" target="_blank" rel="noopener">TripAdvisor</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Nav scroll
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 50);
+}, { passive: true });
+
+// Hero slow-zoom on load
+window.addEventListener('load', () => {
+  document.getElementById('hero').classList.add('loaded');
+});
+
+// Hamburger
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobile-menu');
+hamburger.addEventListener('click', () => {
+  const open = mobileMenu.classList.toggle('open');
+  hamburger.classList.toggle('open', open);
+  document.body.style.overflow = open ? 'hidden' : '';
+});
+document.querySelectorAll('.mob-link').forEach(l => {
+  l.addEventListener('click', () => {
+    mobileMenu.classList.remove('open');
+    hamburger.classList.remove('open');
+    document.body.style.overflow = '';
+  });
+});
+
+// IntersectionObserver
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+// Date min
+const dateInput = document.getElementById('r-datum');
+if (dateInput) {
+  const today = new Date().toISOString().split('T')[0];
+  dateInput.min = today;
+  dateInput.value = today;
+}
+
+// Form submit
+document.getElementById('res-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+  this.style.display = 'none';
+  document.getElementById('form-success').style.display = 'block';
+});
+</script>
+
+<script>
+// ── Language System ──────────────────────────────────
+const SDSlang = {
+  nl: {
+    nav_menu:'Menu', nav_about:'Over ons', nav_terras:'Terras',
+    nav_res:'Reservatie', nav_contact:'Contact', nav_cta:'Reserveer',
+    hero_sub:'Authentieke Italiaanse keuken in het hart van Kessel-Lo',
+    hero_icon3:'100% Italiaans', hero_icon4:'Terras',
+    hero_btn1:'Bekijk ons menu', hero_btn2:'Reserveer een tafel',
+    hero_hours:'Di–Zo: 12:00–14:30 &amp; 18:00–21:30',
+    pillar1_title:'100% Italiaans', pillar1_desc:'Authentieke zuiderse Italiaanse keuken',
+    pillar2_title:'Verse pizza &amp; Pinsa', pillar2_desc:'Inclusief lichte Pinsa Romana',
+    pillar3_title:'Gezellig terras', pillar3_desc:'Buiten genieten in alle seizoenen',
+    pillar4_title:'Takeaway &amp; bezorging', pillar4_desc:'Ook afhalen of thuis laten bezorgen',
+    menu_tag:'Onze specialiteiten', menu_heading:'Smaken van het Zuiden',
+    menu_sub:'Alles vers bereid, met liefde en aandacht voor de Italiaanse traditie',
+    card1_desc:'Verse pizza\'s met premium ingrediënten. Ook onze lichte Pinsa Romana — minder zout, minder calorieën, lang gerijsd deeg.',
+    card2_desc:'Linguine alle vongole, ravioli al tartufo, lasagna tradizionale — allemaal vers bereid.',
+    card3_desc:'Kalfsescalop in gorgonzolasaus of Napolitana — het absolute hoogtepunt van onze kaart.',
+    mini2:'Antipasti schotel',
+    order_cta:'Bestel online',
+    about_tag:'Ons verhaal',
+    about_heading:'La famiglia Da Rocco verwelkomt u.',
+    about_italic:'Ristorante 100% italiano — van hart tot bord.',
+    about_body:'Sapori Del Sud is meer dan een restaurant — het is een stukje Italië in Kessel-Lo. Familie Da Rocco brengt de authentieke smaken van het Italiaanse zuiden naar jouw bord. Alles vers bereid, met liefde en aandacht. Hier voel je je precies in Italië.',
+    about_stat3:'Italiaans',
+    terras_tag:'Ons Terras',
+    terras_heading:'Buiten genieten in de open lucht',
+    terras_body:'Geniet van authentieke Italiaanse gerechten op ons gezellige buitenterras. Perfect voor een zomerse lunch of avondmaaltijd in de buitenlucht.',
+    reviews_tag:'Ervaringen', reviews_heading:'Wat onze gasten zeggen',
+    ta_link:'TripAdvisor · #4 in Kessel-Lo',
+    fb_link:'Facebook · 96% aanraders',
+    contact_tag:'Contact &amp; Locatie',
+    day_mon:'Ma', day_tues:'Di–Zo', closed:'Gesloten',
+    contact_note:'Reservatie aanbevolen · Terras beschikbaar',
+    form_tag:'Reserveer een tafel',
+    lbl_naam:'Naam', lbl_datum:'Datum', lbl_tijd:'Tijd',
+    lbl_pers:'Aantal personen', lbl_note:'Opmerking (optioneel)',
+    opt_tijd:'Kies tijdstip', opt_pers:'Kies aantal',
+    opt_12:'1–2 personen', opt_35:'3–5 personen',
+    opt_610:'6–10 personen', opt_10p:'10+ personen',
+    btn_submit:'Reserveer',
+    ph_naam:'Uw naam', ph_note:'Allergiëen, speciale wensen…',
+    success_sub:'We bevestigen uw reservatie zo snel mogelijk.'
+  },
+  en: {
+    nav_menu:'Menu', nav_about:'About', nav_terras:'Terrace',
+    nav_res:'Reservation', nav_contact:'Contact', nav_cta:'Reserve',
+    hero_sub:'Authentic Italian cuisine in the heart of Kessel-Lo',
+    hero_icon3:'100% Italian', hero_icon4:'Terrace',
+    hero_btn1:'View our menu', hero_btn2:'Reserve a table',
+    hero_hours:'Tue–Sun: 12:00–14:30 &amp; 18:00–21:30',
+    pillar1_title:'100% Italian', pillar1_desc:'Authentic southern Italian cuisine',
+    pillar2_title:'Fresh pizza &amp; Pinsa', pillar2_desc:'Including light Pinsa Romana',
+    pillar3_title:'Lovely terrace', pillar3_desc:'Enjoy outdoors in all seasons',
+    pillar4_title:'Takeaway &amp; delivery', pillar4_desc:'Also available for pickup or delivery',
+    menu_tag:'Our specialities', menu_heading:'Flavours of the South',
+    menu_sub:'Everything freshly prepared, with love and care for Italian tradition',
+    card1_desc:'Fresh pizzas with premium ingredients. Also our light Pinsa Romana — less salt, fewer calories, long-fermented dough.',
+    card2_desc:'Linguine alle vongole, ravioli al tartufo, lasagna tradizionale — all freshly prepared.',
+    card3_desc:'Veal escalope in gorgonzola sauce or Napolitana — the absolute highlight of our menu.',
+    mini2:'Antipasti platter',
+    order_cta:'Order online',
+    about_tag:'Our story',
+    about_heading:'La famiglia Da Rocco welcomes you.',
+    about_italic:'Ristorante 100% italiano — from heart to plate.',
+    about_body:'Sapori Del Sud is more than a restaurant — it\'s a piece of Italy in Kessel-Lo. The Da Rocco family brings the authentic flavours of southern Italy to your plate. Everything freshly prepared, with love and care. Here you feel like you\'re in Italy.',
+    about_stat3:'Italian',
+    terras_tag:'Our Terrace',
+    terras_heading:'Dining in the open air',
+    terras_body:'Enjoy authentic Italian dishes on our cosy outdoor terrace. Perfect for a summer lunch or evening meal in the open air.',
+    reviews_tag:'Experiences', reviews_heading:'What our guests say',
+    ta_link:'TripAdvisor · #4 in Kessel-Lo',
+    fb_link:'Facebook · 96% recommend',
+    contact_tag:'Contact &amp; Location',
+    day_mon:'Mon', day_tues:'Tue–Sun', closed:'Closed',
+    contact_note:'Reservation recommended · Terrace available',
+    form_tag:'Reserve a table',
+    lbl_naam:'Name', lbl_datum:'Date', lbl_tijd:'Time',
+    lbl_pers:'Number of guests', lbl_note:'Remarks (optional)',
+    opt_tijd:'Choose time', opt_pers:'Choose number',
+    opt_12:'1–2 guests', opt_35:'3–5 guests',
+    opt_610:'6–10 guests', opt_10p:'10+ guests',
+    btn_submit:'Reserve',
+    ph_naam:'Your name', ph_note:'Allergies, special requests…',
+    success_sub:'We\'ll confirm your reservation soon.'
+  }
+};
+
+let sdLang = localStorage.getItem('sds-lang') || 'nl';
+
+function sdSetLang(l) {
+  sdLang = l;
+  const d = SDSlang[l];
+  document.querySelectorAll('[data-lang]').forEach(el => {
+    const key = el.dataset.lang;
+    if (key === 'nl' || key === 'en') return;
+    if (d[key] !== undefined) el.innerHTML = d[key];
+  });
+  document.querySelectorAll('[data-ph]').forEach(el => {
+    const key = el.dataset.ph;
+    if (d[key] !== undefined) el.placeholder = d[key];
+  });
+  document.querySelectorAll('#langToggle .lang-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.lang === l);
+  });
+  document.documentElement.lang = l;
+  localStorage.setItem('sds-lang', l);
+}
+
+document.getElementById('langToggle').addEventListener('click', e => {
+  const b = e.target.closest('.lang-btn');
+  if (b) sdSetLang(b.dataset.lang);
+});
+
+sdSetLang(sdLang);
+</script>
+</body>
+</html>
