@@ -260,13 +260,10 @@
   .hero-bg {
     position: absolute;
     inset: 0;
-    background-image: url('images/pizza.png');
+    background-image: url('images/terrace.png');
     background-size: cover;
-    background-position: center;
-    transform: scale(1.04);
-    transition: transform 8s ease;
+    background-position: center center;
   }
-  #hero.loaded .hero-bg { transform: scale(1); }
   .hero-overlay {
     position: absolute;
     inset: 0;
@@ -1326,11 +1323,6 @@ const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => {
   nav.classList.toggle('scrolled', window.scrollY > 50);
 }, { passive: true });
-
-// Hero slow-zoom on load
-window.addEventListener('load', () => {
-  document.getElementById('hero').classList.add('loaded');
-});
 
 // Hamburger
 const hamburger = document.getElementById('hamburger');
